@@ -7,9 +7,9 @@
 // @grant		none
 // @include		http://www.wykop.pl/*
 // @date           2016-12-15
-// @resource       metadata https://openuserjs.org/install/look997/Siwa_Broda.user.js
-// @downloadURL    https://openuserjs.org/install/look997/Siwa_Broda.user.js
-// @updateURL      https://openuserjs.org/install/look997/Siwa_Broda.user.js
+// @resource       metadata https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
+// @downloadURL    https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
+// @updateURL      https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @run-at 		document-end
 // ==/UserScript==
 
