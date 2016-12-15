@@ -3,10 +3,10 @@
 // @namespace		http://www.wykop.pl/ludzie/look997/
 // @description		Siwa broda pod awatarem. Tym dłuższa, im dłuższy staż na wykopie.
 // @author		look997
-// @version		1.4 beta
+// @version		1.5 beta
 // @grant		none
 // @include		http://www.wykop.pl/*
-// @date           2016-12-16
+// @date           2016-12-15
 // @resource       metadata https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @downloadURL    https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @updateURL      https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
