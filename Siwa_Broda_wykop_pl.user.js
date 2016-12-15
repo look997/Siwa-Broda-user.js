@@ -3,7 +3,7 @@
 // @namespace		http://www.wykop.pl/ludzie/look997/
 // @description		Siwa broda pod awatarem. Tym dłuższa, im dłuższy staż na wykopie.
 // @author		look997
-// @version		1.5 beta
+// @version		1.51 beta
 // @grant		none
 // @include		http://www.wykop.pl/*
 // @date           2016-12-15
@@ -177,6 +177,9 @@ function main() {
 	profiles.forEach((profileEl)=>{
 		//console.log("allFn 1", profileEl.querySelector(".siwaBroda"));
 		if (profileEl.querySelector(".siwaBroda")) { return false; }
+		const avatarEl = profileEl.querySelector(".avatar");
+		if (!avatarEl.classList.contains("male")) {return false;}
+
 		profileEl.style = "position: relative;";
 		const nickB = profileEl.getAttribute("href").split("/");
 		const nick = nickB[nickB.length-2];
