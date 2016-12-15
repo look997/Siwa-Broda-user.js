@@ -3,7 +3,7 @@
 // @namespace		http://www.wykop.pl/ludzie/look997/
 // @description		Siwa broda pod awatarem. Tym dłuższa, im dłuższy staż na wykopie.
 // @author		look997
-// @version		1.56 beta
+// @version		1.57 beta
 // @grant		none
 // @include		http://www.wykop.pl/*
 // @date           2016-12-15
@@ -164,42 +164,47 @@ function main() {
 	} else {
 		ages = {};
 	}
+
+	const addSiwaBroda = (profileEl)=> {
+		const nickB = profileEl.getAttribute("href").split("/");
+		const nick = nickB[nickB.length-2];
+		profileEl.style = "position: relative;";
+		const avatarEl = profileEl.querySelector(".avatar");
+		if (!avatarEl.classList.contains("male") && profileEl !== document.querySelector('.logged-user > a')) {return false;}
+		avatarEl.style = "border-radius: 0 0 40% 40%; border-bottom: 0 !important;";
+		const age = ages[nick];
+		appendChild(profileEl, `<img class="siwaBroda" src="${siwaBroda[age]}" alt="${age}" title="${age} ${titles[age]}" style="position: absolute; left: 0; min-height: 46.5px;"></img>`);
+		//console.log("addSB", profileEl);
+	};
 	
 	const allFn = (scopeEl)=> {
 	//console.log("allFn 0");
 	const profiles = [].concat(
+		document.querySelector('.logged-user > a'),
 		Array.prototype.slice.call(scopeEl.querySelectorAll('[data-type="comment"] .profile')),
 		Array.prototype.slice.call(scopeEl.querySelectorAll('[data-type="entry"] .profile')),
 		Array.prototype.slice.call(scopeEl.querySelectorAll('[data-type="entrycomment"] .profile')),
 		Array.prototype.slice.call(scopeEl.querySelectorAll('[data-submitflag="commentSubmit"] .profile'))
+
+		
 	);
 	
 	const currentDate = new Date();
 	//let nickB = profile.getAttribute("href").split("/");
 	//let nick = nickB[nickB.length-2];
 	//console.log("allFn 0");
-	profiles.forEach((profileEl)=>{
+	profiles.forEach((profileEl, index)=>{
 		//console.log("allFn 1", profileEl.querySelector(".siwaBroda"));
 		if (profileEl.querySelector(".siwaBroda")) { return false; }
 		const avatarEl = profileEl.querySelector(".avatar");
-		if (!avatarEl.classList.contains("male")) {return false;}
-
-		profileEl.style = "position: relative;";
+		if (!avatarEl.classList.contains("male") && profileEl !== document.querySelector('.logged-user > a')) {return false;}
+		
 		const nickB = profileEl.getAttribute("href").split("/");
 		const nick = nickB[nickB.length-2];
+		profileEl.style = "position: relative;";
 		//profile.innerHTML += `<img src="${siwaBroda[0]}"></img>`;
 
-		const addSiwaBroda = (profileEl)=> {
-			profileEl.style = "position: relative;";
-			
-			const avatarEl = profileEl.querySelector(".avatar");
-			if (!avatarEl.classList.contains("male")) {return false;}
-			avatarEl.style = "border-radius: 0 0 40% 40%";
-			
-			const age = ages[nick];
-			appendChild(profileEl, `<img class="siwaBroda" src="${siwaBroda[age]}" alt="${age}" title="${age} ${titles[age]}" style="position: absolute; left: 0; min-height: 46.5px;"></img>`);
-			//console.log("addSB", profileEl);
-		};
+		
 
 		const addSiwaBrodaAndMutation = (profileEl)=> {
 			addSiwaBroda(profileEl);
