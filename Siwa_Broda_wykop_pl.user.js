@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name		Siwa Broda
-// @namespace		http://www.wykop.pl/ludzie/look997/
+// @namespace		https://www.wykop.pl/ludzie/look997/
 // @description		Siwa broda pod awatarem. Tym dłuższa, im dłuższy staż na wykopie.
 // @author		look997
-// @version		1.6 beta
+// @version		1.7 beta
 // @grant		none
-// @include		http://www.wykop.pl/*
-// @date           2016-12-17
+// @include		https://www.wykop.pl/*
+// @date           2017-05-15
 // @resource       metadata https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @downloadURL    https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @updateURL      https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
@@ -56,6 +56,7 @@ function main() {
 	}
 
 	function siwaBrodaFn () {
+		let sbError = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAA+CAYAAABp/UjKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AwREiMYRaL08AAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAjSURBVGje7cExAQAAAMKg9U9tCU+gAAAAAAAAAAAAAAAAngYwrgABCaOTZwAAAABJRU5ErkJggg==";
 
 		let sb0 = "iVBORw0KGgoAAAANSUhEUgAAADIAAAA+CAYAAABp/UjKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AwRDAAE+bJRpAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAJySURBVGje7ZjLahRBFIa/6hlBlCioGEURrIVK3kF8Id8sW3duIxgCgbgyCLXQpeCFmItmpsvN6XDSmenp6apyBjk/NDN9rfP3+c+twWAwGAwGg8FgMBgMBoPBYDAYDP8b3LwTIYRbwC/vfZ1zwRCCU2tHAO99TH1uNWexB8BZs1BmRCHhgDFQhRCcIpiPCPADOC+oAidr17KR+tLGc46fl/BG661PZY1GXpQgMk198ALUuQgsDPacHvDex5Y3Yu4XNR5g2IXkehgTZ/0v4W23JJErxwpLsIxHujy1TC1op9pidWSAl6oQwqV6MKsuqPMVMNJZK7WOJEtLMJJMVAHX5Xcix6ayXRRAued3O8WnyHQpaXnvL5FR+7Uy6iFwB3gkxh8C34Brar0J8DVn9zDOFGtRSFXADeAp8Bq4D7wD3ounbgIbwHfgDfBJSK2GSFsCar+R6jNgS4zeAJ4Dp8Cm/H4B9oHQEEnNfsnB3jJgKnLZBfaAn+KhLXlpx3JuG/iYs5/LWtklXm4D94C7wEvgFfAC2AHeAgfAZ+BENYzJwe6GGNu1YAhhJCSOxAuPgSfinQ/AH+/9pJ0FSzWNqfPGiWj/TCR0KLFyWmjGSY+ROZ3t8YxR4EhlN7f2REQiUZ7dDFE1UCv5xI7i+m+k1VPLle549T25CQz2SAih0xjV6kflnU4SOTroIdJyPYL9yuxRkkRSjHQZ1se4vteVTL9xyHWlB7CiM3tfj64qRlIJVGsVIwnfs2rtjVzpuBo4Efa6R422sVSQ9/ZIXzK6vqh7YolvWEsTSTGg6ZLX5XNRsbZiUYdQJNjbHx3WEW6Vnswpu7+oPQ95s+zYwgAAAABJRU5ErkJggg==";
 
@@ -220,7 +221,7 @@ function main() {
 		};
 
 		if(ages[nick] === undefined) {
-			fetch(`http://a.wykop.pl/profile/${nick}/appkey,tss651YJRF`)
+			fetch(`https://a.wykop.pl/profile/${nick}/appkey,tss651YJRF`)
 			.then((response)=> {
 			return response.json();
 			}).then((json)=>{
