@@ -3,10 +3,10 @@
 // @namespace		https://www.wykop.pl/ludzie/look997/
 // @description		Siwa broda pod awatarem. Tym dłuższa, im dłuższy staż na wykopie.
 // @author		look997
-// @version		1.7 beta
+// @version		1.8 beta
 // @grant		none
 // @include		https://www.wykop.pl/*
-// @date           2017-05-15
+// @date           2018-01-08
 // @resource       metadata https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @downloadURL    https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @updateURL      https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
@@ -54,7 +54,10 @@ function main() {
 		var blob = b64toBlob(b64Data, 'image/png');
 		return URL.createObjectURL(blob, {autoRevoke: false});
 	}
-
+	
+	const colorBeard = false; // true - blue-male pink-female gray-gender not set, flase - only gray beard
+	const beardOnlyForMale = true;
+	
 	function siwaBrodaFn () {
 		let sbError = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAA+CAYAAABp/UjKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AwREiMYRaL08AAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAjSURBVGje7cExAQAAAMKg9U9tCU+gAAAAAAAAAAAAAAAAngYwrgABCaOTZwAAAABJRU5ErkJggg==";
 
@@ -91,22 +94,22 @@ function main() {
 			sb5,
 			sb5,
 			sb5,
-
+			
 			sb9,
 			sb9,
 			sb9,
 			sb9,
-
+			
 			sb13,
 			sb13,
 			sb13,
 			sb13,
-
+			
 			sb17,
 			sb17,
 			sb17,
 			sb17
-
+			
 			// sb21
 		];
 	}
@@ -158,23 +161,44 @@ function main() {
 	];
 
 
-	var LSAges = localStorage.getItem("ages");
-	let ages;
-	if (LSAges) {
-		ages = JSON.parse(LSAges);
+	// var LSAges = localStorage.getItem("ages");
+	// let ages;
+	// if (LSAges) {
+	// 	ages = JSON.parse(LSAges);
+	// } else {
+	// 	ages = {};
+	// }
+
+	var LSSignUpDates = localStorage.getItem("signupdates");
+	let signUpDates;
+	if (LSSignUpDates) {
+		signUpDates = JSON.parse(LSSignUpDates);
 	} else {
-		ages = {};
+		signUpDates = {};
 	}
+	
+	const currentDate = new Date();
 
 	const addSiwaBroda = (profileEl)=> {
 		const nickB = profileEl.getAttribute("href").split("/");
 		const nick = nickB[nickB.length-2];
 		profileEl.style = "position: relative;";
 		const avatarEl = profileEl.querySelector(".avatar");
-		if (!avatarEl.classList.contains("male") && profileEl !== document.querySelector('.logged-user > a')) {return false;}
+		if (beardOnlyForMale && !avatarEl.classList.contains("male") && profileEl !== document.querySelector('.logged-user > a')) {return false;}
+		let color = "";
+		if (colorBeard) {
+			if (avatarEl.classList.contains("female")) {
+				color = "filter: hue-rotate(190deg) saturate(100);";
+			} else
+			if (avatarEl.classList.contains("male")) {
+				color = "filter: hue-rotate(1deg) saturate(323) invert(1);";
+			}
+		}
 		avatarEl.style = "border-radius: 0 0 40% 40%; border-bottom: 0 !important;";
-		const age = ages[nick];
-		appendChild(profileEl, `<img class="siwaBroda" src="${siwaBroda[age]}" alt="${age}" title="${age} ${titles[age]}" style="position: absolute; left: -12%; min-height: 46.5px; min-width: 125%"></img>`);
+		const signUpDate = signUpDates[nick];
+		const age = Math.floor((currentDate - new Date(signUpDate)) / 31557600000);
+		//console.log(age, currentDate, signUpDate, signUpDates);
+		appendChild(profileEl, `<img class="siwaBroda" src="${siwaBroda[age]}" alt="${age}" title="${age} ${titles[age]}" style="${color} position: absolute; left: -12%; min-height: 46.5px; min-width: 125%"></img>`);
 		//console.log("addSB", profileEl);
 	};
 	
@@ -190,7 +214,6 @@ function main() {
 		
 	);
 	
-	const currentDate = new Date();
 	//let nickB = profile.getAttribute("href").split("/");
 	//let nick = nickB[nickB.length-2];
 	//console.log("allFn 0");
@@ -198,18 +221,18 @@ function main() {
 		//console.log("allFn 1", profileEl.querySelector(".siwaBroda"));
 		if (profileEl.querySelector(".siwaBroda")) { return false; }
 		const avatarEl = profileEl.querySelector(".avatar");
-		if (!avatarEl.classList.contains("male") && profileEl !== document.querySelector('.logged-user > a')) {return false;}
+		if (beardOnlyForMale && !avatarEl.classList.contains("male") && profileEl !== document.querySelector('.logged-user > a')) {return false;}
 		
 		const nickB = profileEl.getAttribute("href").split("/");
 		const nick = nickB[nickB.length-2];
 		profileEl.style = "position: relative;";
 		//profile.innerHTML += `<img src="${siwaBroda[0]}"></img>`;
-
 		
-
+		
+		
 		const addSiwaBrodaAndMutation = (profileEl)=> {
 			addSiwaBroda(profileEl);
-
+			
 			let profileElObserver = new MutationObserver((mutations)=> {
 				//console.log("prifilEl mutation");
 				if (2 !== mutations[0].target.querySelector(".profile").childElementCount) {
@@ -219,25 +242,27 @@ function main() {
 			});
 			profileElObserver.observe( profileEl.parentElement.parentElement, {childList: true} );
 		};
-
-		if(ages[nick] === undefined) {
+		
+		if(signUpDates[nick] === undefined) {
 			fetch(`https://a.wykop.pl/profile/${nick}/appkey,tss651YJRF`)
 			.then((response)=> {
 			return response.json();
 			}).then((json)=>{
-				const singUpDate = new Date(json.signup_date); // np. "2014-11-10 19:07:59"
-				const age = Math.floor((currentDate - singUpDate) / 31557600000); // 31557600000 is 24 * 3600 * 365.25 * 1000 which is the length of a year
-				
+				const signUpDate = new Date(json.signup_date); // np. "2014-11-10 19:07:59"
+				const age = Math.floor((currentDate - signUpDate) / 31557600000); // 31557600000 is 24 * 3600 * 365.25 * 1000 which is the length of a year
+				//debugger;
 				if (age >= 0) {
-					ages[nick] = age;
-					localStorage.setItem("ages", JSON.stringify(ages));
+					signUpDates[nick] = json.signup_date;
+					localStorage.setItem("signupdates", JSON.stringify(signUpDates));
+					//ages[nick] = age;
+					//localStorage.setItem("ages", JSON.stringify(ages));
 
 					addSiwaBrodaAndMutation(profileEl);
 				} else if (json.error.code === 13) {
-					console.log("error code 13", json, nick, ":", currentDate, "-", singUpDate, `(${json.signup_date}) =`, age);
+					//console.log("error code 13", json, nick, ":", currentDate, "-", signUpDate, `(${json.signup_date}) =`, age);
 				} else {
-					console.log("error !age >= 0", json, nick, ":", currentDate, "-", singUpDate, `(${json.signup_date}) =`, age);
-					const errString = `<img class="siwaBroda" src="" alt="[Error]" style="font-size: 11px; display: flex; position: absolute; left: 0;" title='Brody nie dodano z powodu błędu po stronie Wykop API: "${json.error.message}".\nPoproś administrację i moderację o zwiększenie limitu żądań dla dodatku "Siwa Broda".\nNapisz do #moderacja #administracja na mikroblogu lub w prywatnej wiadomości.\n[Komunikat dodatku: "Siwa Broda"]'></img>`;
+					//console.log("error !age >= 0", json, nick, ":", currentDate, "-", signUpDate, `(${json.signup_date}) =`, age);
+					const errString = `<img class="siwaBroda" src="" alt="[Error]" style="font-size: 11px; display: flex; position: absolute; left: 0; width: 100%; height: 20px;" title='Brody nie dodano z powodu błędu po stronie Wykop API: "${json.error.message}".\nPoproś administrację i moderację o zwiększenie limitu żądań dla dodatku "Siwa Broda".\nNapisz do #moderacja #administracja na mikroblogu lub w prywatnej wiadomości.\n[Komunikat dodatku: "Siwa Broda"]'></img>`;
 					appendChild(profileEl, errString);
 
 					let profileElErrObserver = new MutationObserver((mutations)=> {
@@ -252,7 +277,7 @@ function main() {
 				}
 			}).catch((error)=>{
 				console.log(error);
-				const errString = `<img class="siwaBrodaError" src="" alt="[Error]" style="font-size: 11px; display: flex; position: absolute; left: 0;" title='Brody nie dodano z powodu błędu po stronie Wykop API: "${json.error.message}".\nPoproś administrację i moderację o zwiększenie limitu żądań dla dodatku "Siwa Broda".\nNapisz do #moderacja #administracja na mikroblogu lub w prywatnej wiadomości.\n[Komunikat dodatku: "Siwa Broda"]'></img>`;
+				const errString = `<img class="siwaBrodaError" src="" alt="[Error]" style="font-size: 11px; display: flex; position: absolute; left: 0; width: 100%; height: 20px;" title='Brody nie dodano z powodu błędu po stronie Wykop API: "${json.error.message}".\nPoproś administrację i moderację o zwiększenie limitu żądań dla dodatku "Siwa Broda".\nNapisz do #moderacja #administracja na mikroblogu lub w prywatnej wiadomości.\n[Komunikat dodatku: "Siwa Broda"]'></img>`;
 				appendChild(profileEl, errString);
 
 				let profileElCatchObserver = new MutationObserver((mutations)=> {
