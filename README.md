@@ -12,8 +12,8 @@ Strona skryptu:
 
 
 **Efekt w trybie nocnym:**
-![W trybie nocnym](http://x2.cdn02.imgwykop.pl/c2406292/789_52HAbgIO_0_full.jpg "W trybie nocnym")
+![W trybie nocnym](https://www.wykop.pl/cdn/c2406292/789_CZ8uwADW_0_full.jpg "W trybie nocnym")
 
 
 **Efekt w trybie dziennym:**
-![W trybie dziennym](http://x2.cdn02.imgwykop.pl/c2406292/789_52HAbgIO_1_full.jpg "W trybie dziennym")
+![W trybie dziennym](https://www.wykop.pl/cdn/c2406292/789_CZ8uwADW_1_full.jpg "W trybie dziennym")
