@@ -6,7 +6,7 @@
 // @version		1.9 beta
 // @grant		none
 // @include		https://www.wykop.pl/*
-// @date           2018-01-08
+// @date           2019-12-27
 // @resource       metadata https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @downloadURL    https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
 // @updateURL      https://github.com/look997/Siwa-Broda/raw/master/Siwa_Broda_wykop_pl.user.js
