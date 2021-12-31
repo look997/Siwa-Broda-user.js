@@ -1,5 +1,5 @@
 // @ts-ignore
-const VSCodeLMDate = "2021/12/31 12:41:35";
+const VSCodeLMDate = "2021/12/31 13:08:28";
 
 // @ts-ignore
 const diffTime = Math.abs(Date.now() - new Date(VSCodeLMDate).getTime())/1000;
@@ -8,7 +8,7 @@ const diffTime = Math.abs(Date.now() - new Date(VSCodeLMDate).getTime())/1000;
 // ==UserScript==
 // @name        Siwa Broda
 // @description	Siwa broda pod awatarem. Tym dłuższa, im dłuższy staż na wykopie.
-// @version     1.10 beta
+// @version     1.11 beta
 // @author      look997
 // @include     https://www.wykop.pl/*
 // @homepageURL https://www.wykop.pl/ludzie/addons/look997/
@@ -25,7 +25,8 @@ const diffTime = Math.abs(Date.now() - new Date(VSCodeLMDate).getTime())/1000;
 (async function() {
 "use strict";
 
-
+if (document.cookie.includes("nieChcęSiwejBrody")) { return false; }
+// document.cookie = "us-siwa-broda=nieChcęSiwejBrody"
 
 
 // siwa broda module start
