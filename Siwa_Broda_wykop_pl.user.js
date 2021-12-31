@@ -1,9 +1,9 @@
+// @ts-ignore
+const VSCodeLMDate = "2021/12/31 12:41:35";
 
-
-const VSCodeLMDate = "2021/12/26 05:20:58";
-
+// @ts-ignore
 const diffTime = Math.abs(Date.now() - new Date(VSCodeLMDate).getTime())/1000;
-console.log(VSCodeLMDate, `${Math.floor(diffTime)} secs ago`);
+// console.log(VSCodeLMDate, `${Math.floor(diffTime)} secs ago`);
 
 // ==UserScript==
 // @name        Siwa Broda
@@ -11,8 +11,8 @@ console.log(VSCodeLMDate, `${Math.floor(diffTime)} secs ago`);
 // @version     1.10 beta
 // @author      look997
 // @include     https://www.wykop.pl/*
-// @homepageURL https://www.wykop.pl/ludzie/look997
-// @namespace	  https://www.wykop.pl/ludzie/look997
+// @homepageURL https://www.wykop.pl/ludzie/addons/look997/
+// @namespace	  https://www.wykop.pl/ludzie/addons/look997/
 // @grant       GM_xmlhttpRequest
 // @require     https://greasyfork.org/scripts/437595-wykopobserve/code/WykopObserve.js?version=1002287
 // @run-at      document-end
@@ -274,6 +274,7 @@ const GBText = getGBText();
 const greyBeard = GBUrl.map((GBUrl,i)=>({GBUrl,text:GBText[i]}));
 
 
+// @ts-ignore
 // @ts-ignore
 wykopObserve([filterGroups.all, "other"], async function ({profileEl, liEl, contentEl}, {place, isFirstTime, nick, authorSex}) {
 	
